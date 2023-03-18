@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "76860720865",
+    "project_id": "jchat-4b0ea",
+    "storage_bucket": "jchat-4b0ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76860720865:android:fc38650b3ffeff556559a0",
+        "android_client_info": {
+          "package_name": "com.jaybhararia.jchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "76860720865-tkfgd0up456gfsgcm58mbmgvo21ddup8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhNYT0ANUGEIwBKDHrvoe7IwnHfMtX1dA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "76860720865-tkfgd0up456gfsgcm58mbmgvo21ddup8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
