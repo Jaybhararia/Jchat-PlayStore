@@ -82,7 +82,7 @@ class _ChatState extends State<Chat> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                stream: _firestore.collection('messages').snapshots(),
+                stream: _firestore.collection('messages').orderBy('date').snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
@@ -96,6 +96,7 @@ class _ChatState extends State<Chat> {
                   for (var message in messages) {
                     final messageText = message.data()['text'];
                     final messageSender = message.data()['sender'];
+
 
                     final currentuser = loggedinUser.email;
 
@@ -138,7 +139,7 @@ class _ChatState extends State<Chat> {
                         _firestore.collection('messages').add({
                             'sender' : loggedinUser.email,
                           'text' : message,
-                          'time' : DateTime.now(),
+                          'date': DateTime.now().toIso8601String().toString(),
                         });
                       },
                       child: Text(
