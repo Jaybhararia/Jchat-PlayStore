@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class Chat extends StatefulWidget {
   // const Chat({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _ChatState extends State<Chat> {
 
   String message = '';
 
-  final _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   final _auth = FirebaseAuth.instance;
   late User loggedinUser;
@@ -82,41 +83,72 @@ class _ChatState extends State<Chat> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                stream: _firestore.collection('messages').orderBy('date').snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SpinKitFadingFour(
-                        color: Colors.redAccent,
-                      ),
-                    );
-                  }
-                  final messages = snapshot.data!.docs.reversed;
-                  List<MessageBubbles> messageBubbles = [];
-                  for (var message in messages) {
-                    final messageText = message.data()['text'];
-                    final messageSender = message.data()['sender'];
+              // StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              //   stream: _firestore.collection('messages').orderBy('timestamp', descending: true).snapshots(),
+              //   builder: (context, snapshot) {
+              //     if (!snapshot.hasData) {
+              //       return Center(
+              //         child: SpinKitFadingFour(
+              //           color: Colors.redAccent,
+              //         ),
+              //       );
+              //     }
+              //     final messages = snapshot.data!.docs;
+              //     List<MessageBubbles> messageBubbles = [];
+              //     for (var message in messages) {
+              //       final messageText = message.data()['text'];
+              //       final messageSender = message.data()['sender'];
+              //
+              //
+              //       final currentuser = loggedinUser.email;
+              //
+              //
+              //       final messageWidget = MessageBubbles(messageSender, messageText, currentuser == messageSender);
+              //       messageBubbles.add(messageWidget);
+              //
+              //       // final currentUser = loggedinUser.email;
+              //     }
+              //
+              //     return Expanded(
+              //       child: ListView(
+              //         reverse: true,
+              //         children: messageBubbles
+              //       ),
+              //     );
+              //   }
+              // ),
+            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          stream: _firestore.collection('messages').orderBy('timestamp', descending: true).snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: SpinKitFadingFour(
+                  color: Colors.redAccent,
+                ),
+              );
+            }
+            final messages = snapshot.data!.docs;
+            List<MessageBubbles> messageBubbles = [];
+            for (var message in messages) {
+              final messageText = message.data()['text'];
+              final messageSender = message.data()['sender'];
+              final messageTimestamp = message.data()['timestamp'];
 
+              final currentuser = loggedinUser.email;
 
-                    final currentuser = loggedinUser.email;
+              final messageWidget = MessageBubbles(messageSender, messageText, currentuser == messageSender, messageTimestamp);
+              messageBubbles.add(messageWidget);
+            }
 
-
-                    final messageWidget = MessageBubbles(messageSender, messageText, currentuser == messageSender);
-                    messageBubbles.add(messageWidget);
-
-                    // final currentUser = loggedinUser.email;
-                  }
-
-                  return Expanded(
-                    child: ListView(
-                      reverse: true,
-                      children: messageBubbles
-                    ),
-                  );
-                }
+            return Expanded(
+              child: ListView(
+                reverse: true,
+                children: messageBubbles,
               ),
-              Container(
+            );
+          }
+          ),
+          Container(
                 decoration: kMessageContainerDecoration,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -140,7 +172,7 @@ class _ChatState extends State<Chat> {
                         _firestore.collection('messages').add({
                             'sender' : loggedinUser.email,
                           'text' : message,
-                          'date': DateTime.now().toIso8601String().toString(),
+                          'timestamp': DateTime.now().toUtc().millisecondsSinceEpoch,
                         });
                       },
                       child: Text(
@@ -159,14 +191,68 @@ class _ChatState extends State<Chat> {
   }
 }
 
+// class MessageBubbles extends StatelessWidget {
+//
+//   String sender;
+//   String text;
+//   bool isMe;
+//
+//
+//   MessageBubbles(@required this.sender, @required this.text, @required this.isMe);
+//
+//   // get timestamp => null;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(12.0),
+//       child: Column(
+//         crossAxisAlignment: isMe? CrossAxisAlignment.end : CrossAxisAlignment.start,
+//         children: [
+//           Text(
+//             '$sender',
+//             style: TextStyle(
+//               color: Colors.black45,
+//               fontSize: 12,
+//             ),
+//           ),
+//           Material(
+//             elevation: 5,
+//             borderRadius: BorderRadius.only(
+//               // topLeft: Radius.circular(30),
+//               bottomLeft: Radius.circular(30),
+//               bottomRight: Radius.circular(30),
+//               topRight: isMe? Radius.zero : Radius.circular(30),
+//               topLeft: isMe? Radius.circular(30) : Radius.zero,
+//
+//             ),
+//             color: isMe ?  Colors.blue : Colors.teal,
+//             child: Padding(
+//               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+//               child: Text(
+//                 '$text',
+//                 style: TextStyle(
+//                   fontSize: 15,
+//                   color: CupertinoColors.white,
+//                 ),
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+//
+
 class MessageBubbles extends StatelessWidget {
 
   String sender;
   String text;
   bool isMe;
+  int timestamp;
 
-
-  MessageBubbles(@required this.sender, @required this.text, @required this.isMe);
+  MessageBubbles(@required this.sender, @required this.text, @required this.isMe, @required this.timestamp);
 
   @override
   Widget build(BuildContext context) {
@@ -195,12 +281,25 @@ class MessageBubbles extends StatelessWidget {
             color: isMe ?  Colors.blue : Colors.teal,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Text(
-                '$text',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: CupertinoColors.white,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    '$text',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: CupertinoColors.white,
+                    ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(timestamp)),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.white70,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -209,4 +308,3 @@ class MessageBubbles extends StatelessWidget {
     );
   }
 }
-
