@@ -74,6 +74,9 @@ class _ChatState extends State<Chat> {
       colors: [
         Color(0xFF9A9CEA),
         Colors.redAccent.shade200,
+        // Color(0xFFad2b90),
+        // Color(0xFF4e3aad),
+        // Colors.white,
 
       ],
     )

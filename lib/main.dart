@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'ForgotPasswordScreen.dart';
 import 'login_screen.dart';
 import 'registration_screen.dart';
 import 'chat_screen.dart';
+import 'verification_screen.dart';
 
 void main() async{
 
@@ -26,6 +28,8 @@ class MyApp extends StatelessWidget {
         Register.id :(context) => Register(),
         login_screen.id : (context) => login_screen(),
         Chat.id : (context) => Chat(),
+        Verification.id : (context) => Verification(),
+        ForgotPassword.id : (context) => ForgotPassword(),
       },
     );
   }
