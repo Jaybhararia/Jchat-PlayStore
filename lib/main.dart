@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'ForgotPasswordScreen.dart';
 import 'login_screen.dart';
 import 'registration_screen.dart';
 import 'chat_screen.dart';
 import 'verification_screen.dart';
+import 'package:jchat/GroupCode.dart';
 
 void main() async{
 
@@ -27,9 +29,10 @@ class MyApp extends StatelessWidget {
       routes: {
         Register.id :(context) => Register(),
         login_screen.id : (context) => login_screen(),
-        Chat.id : (context) => Chat(),
+        // Chat.id : (context) => Chat(),
         Verification.id : (context) => Verification(),
         ForgotPassword.id : (context) => ForgotPassword(),
+        Code_Group.id : (context) => Code_Group(),
       },
     );
   }

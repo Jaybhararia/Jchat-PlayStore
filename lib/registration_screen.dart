@@ -18,6 +18,28 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
 
+  void alert(Object e) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.blueGrey,
+            title: Text('Problem Signing in...'),
+            content: Text(e.toString()),
+            actions: [
+              MaterialButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Register.id);
+                },
+                child: Text(
+                  'Go back to login screen',
+                ),
+              )
+            ],
+          );
+        });
+  }
+
   bool showspinner = false;
 
   String email = '';
@@ -172,7 +194,7 @@ class _RegisterState extends State<Register> {
                           }
                         }
                         catch(e){
-                          print(e);
+                          alert(e);
                         }
                       },
 

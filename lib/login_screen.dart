@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:jchat/ForgotPasswordScreen.dart';
+import 'package:jchat/GroupCode.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'chat_screen.dart';
 import 'registration_screen.dart';
@@ -232,7 +233,7 @@ class _login_screenState extends State<login_screen>
                               });
 
                               if (user != null) {
-                                Navigator.pushNamed(context, Chat.id);
+                                Navigator.pushNamed(context, Code_Group.id);
                               }
                             } catch (e) {
                               alert(e);

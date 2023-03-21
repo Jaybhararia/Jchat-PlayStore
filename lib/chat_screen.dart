@@ -9,13 +9,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class Chat extends StatefulWidget {
+
+  final String stringmessage;
+
+  Chat({required this.stringmessage});
   // const Chat({Key? key}) : super(key: key);
+
+
+
 static String id = 'Chat';
+
+
   @override
   State<Chat> createState() => _ChatState();
 }
 
 class _ChatState extends State<Chat> {
+
+  late String stringmessage;
+
+
 
   final mesaagecontroller = TextEditingController();
 
@@ -31,7 +44,7 @@ class _ChatState extends State<Chat> {
     // TODO: implement initState
     super.initState();
 
-
+    stringmessage = widget.stringmessage;
 
     getCurrentUser();
   }
@@ -62,7 +75,7 @@ class _ChatState extends State<Chat> {
                 Navigator.pop(context);
               }),
         ],
-        title: Text('JChat'),
+        title: Text('JChat : $stringmessage'),
         backgroundColor: Color(0xFF38314c),
       ),
       body: Center(
@@ -121,7 +134,7 @@ class _ChatState extends State<Chat> {
               //   }
               // ),
             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: _firestore.collection('messages').orderBy('timestamp', descending: true).snapshots(),
+          stream: _firestore.collection(stringmessage).orderBy('timestamp', descending: true).snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
@@ -172,7 +185,7 @@ class _ChatState extends State<Chat> {
                     TextButton(
                       onPressed: () {
                         mesaagecontroller.clear();
-                        _firestore.collection('messages').add({
+                        _firestore.collection(stringmessage).add({
                             'sender' : loggedinUser.email,
                           'text' : message,
                           'timestamp': DateTime.now().toUtc().millisecondsSinceEpoch,
