@@ -57,7 +57,7 @@ class _Code_GroupState extends State<Code_Group> {
       backgroundColor: Color(0xFF201b31),
       appBar: AppBar(
         title: Text('Join the Group Chat'),
-      ),
+        ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,7 +143,10 @@ class _Code_GroupState extends State<Code_Group> {
                         ),
                       );
                     } else {
-                      alert();
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar
+                        (backgroundColor: Color(0xFF0df5e3),
+                        content: Text('Re-Enter Code'),
+                      ));
                     }
                   },
                   minWidth: 200.0,

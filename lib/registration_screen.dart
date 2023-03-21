@@ -194,7 +194,10 @@ class _RegisterState extends State<Register> {
                           }
                         }
                         catch(e){
-                          alert(e);
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar
+                            (backgroundColor: Color(0xFF0df5e3),
+                            content: Text(e.toString()),
+                          ));
                         }
                       },
 
