@@ -194,6 +194,7 @@ class _RegisterState extends State<Register> {
                           }
                         }
                         catch(e){
+                          showspinner = false;
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar
                             (backgroundColor: Color(0xFF0df5e3),
                             content: Text(e.toString()),

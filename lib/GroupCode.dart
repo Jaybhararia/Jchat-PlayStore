@@ -21,27 +21,27 @@ class Code_Group extends StatefulWidget {
 
 class _Code_GroupState extends State<Code_Group> {
 
-  void alert() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            backgroundColor: Colors.blueGrey,
-            title: Text('Problem Signing in...'),
-            content: Text('Code Value Does not Exist'),
-            actions: [
-              MaterialButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, Code_Group.id);
-                },
-                child: Text(
-                  'Re-Enter Code',
-                ),
-              )
-            ],
-          );
-        });
-  }
+  // void alert() {
+  //   showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //           backgroundColor: Colors.blueGrey,
+  //           title: Text('Problem Signing in...'),
+  //           content: Text('Code Value Does not Exist'),
+  //           actions: [
+  //             MaterialButton(
+  //               onPressed: () {
+  //                 Navigator.pushNamed(context, Code_Group.id);
+  //               },
+  //               child: Text(
+  //                 'Re-Enter Code',
+  //               ),
+  //             )
+  //           ],
+  //         );
+  //       });
+  // }
 
   String code = '';
 
@@ -144,7 +144,10 @@ class _Code_GroupState extends State<Code_Group> {
                           ),
                         );
                       } else {
-                        alert();
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar
+                          (backgroundColor: Color(0xFF0df5e3),
+                          content: Text('Code Value Does Not Exist'),
+                        ));
                       }
                     },
                     minWidth: 200.0,
