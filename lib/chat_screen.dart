@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'constants.dart';
@@ -286,54 +287,65 @@ class MessageBubbles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Column(
-        crossAxisAlignment: isMe? CrossAxisAlignment.end : CrossAxisAlignment.start,
-        children: [
-          Text(
-            '$sender',
-            style: TextStyle(
-              color: Colors.black45,
-              fontSize: 12,
-            ),
+    return GestureDetector(
+      onLongPress: () {
+        Clipboard.setData(ClipboardData(text: text));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Text copied to clipboard"),
+            backgroundColor: Color(0xFF0df5e3),
           ),
-          Material(
-            elevation: 5,
-            borderRadius: BorderRadius.only(
-              // topLeft: Radius.circular(30),
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30),
-              topRight: isMe? Radius.zero : Radius.circular(30),
-              topLeft: isMe? Radius.circular(30) : Radius.zero,
-
-            ),
-            color: isMe ?  Colors.blue : Colors.teal,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    '$text',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: CupertinoColors.white,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(timestamp)),
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.white70,
-                    ),
-                  ),
-                ],
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: isMe? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          children: [
+            Text(
+              '$sender',
+              style: TextStyle(
+                color: Colors.black45,
+                fontSize: 12,
               ),
             ),
-          ),
-        ],
+            Material(
+              elevation: 5,
+              borderRadius: BorderRadius.only(
+                // topLeft: Radius.circular(30),
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+                topRight: isMe? Radius.zero : Radius.circular(30),
+                topLeft: isMe? Radius.circular(30) : Radius.zero,
+
+              ),
+              color: isMe ?  Colors.blue : Colors.teal,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: isMe? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      '$text',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: CupertinoColors.white,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(timestamp)),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
