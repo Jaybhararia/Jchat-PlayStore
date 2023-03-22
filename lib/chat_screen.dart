@@ -26,6 +26,11 @@ static String id = 'Chat';
 
 class _ChatState extends State<Chat> {
 
+  Future<void> createFirestoreCollection() async {
+    final firestore = FirebaseFirestore.instance;
+    await firestore.collection(stringmessage).doc('dummyDoc').set({});
+  }
+
   late String stringmessage;
 
 
@@ -39,12 +44,18 @@ class _ChatState extends State<Chat> {
   final _auth = FirebaseAuth.instance;
   late User loggedinUser;
 
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
+
+
     stringmessage = widget.stringmessage;
+
+    createFirestoreCollection();
 
     getCurrentUser();
   }
@@ -145,6 +156,7 @@ class _ChatState extends State<Chat> {
             }
             final messages = snapshot.data!.docs;
             List<MessageBubbles> messageBubbles = [];
+            // messageBubbles.add(MessageBubbles('JChat', 'Welcome To JChat', false, DateTime.now().toUtc().millisecondsSinceEpoch));
             for (var message in messages) {
               final messageText = message.data()['text'];
               final messageSender = message.data()['sender'];
@@ -155,6 +167,8 @@ class _ChatState extends State<Chat> {
               final messageWidget = MessageBubbles(messageSender, messageText, currentuser == messageSender, messageTimestamp);
               messageBubbles.add(messageWidget);
             }
+
+            messageBubbles.add(MessageBubbles('JChat', 'Welcome To JChat', false, DateTime.now().toUtc().millisecondsSinceEpoch));
 
             return Expanded(
               child: ListView(
