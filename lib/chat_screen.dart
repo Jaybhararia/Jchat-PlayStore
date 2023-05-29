@@ -79,17 +79,34 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: null,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.black,
+          onPressed: () {
+            // Handle back button press
+            Navigator.pop(context);
+          },
+        ),
         actions: [
           IconButton(
-              icon: Icon(MaterialSymbols.close),
+              icon: Icon(
+                  MaterialSymbols.close,
+                color: Colors.black,
+              ),
               onPressed: () {
                 _auth.signOut();
                 Navigator.pop(context);
               }),
         ],
-        title: Text('JChat : $stringmessage'),
-        backgroundColor: Color(0xFF38314c),
+        title: Text(
+            'JChat : $stringmessage',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic
+          ),
+        ),
+        backgroundColor: Color(0xFFfaf4d0),
       ),
       body: Center(
       child: Container(
@@ -98,8 +115,9 @@ class _ChatState extends State<Chat> {
       begin: Alignment.topRight,
       end: Alignment.bottomLeft,
       colors: [
-        Color(0xFF9A9CEA),
-        Colors.redAccent.shade200,
+        Color(0xFFf3d245),
+        Color(0xFFea7c43),
+
         // Color(0xFFad2b90),
         // Color(0xFF4e3aad),
         // Colors.white,
@@ -190,7 +208,7 @@ class _ChatState extends State<Chat> {
                       child: TextField(
                         controller: mesaagecontroller,
                         style: TextStyle(
-                          color: Colors.yellow,
+                          color: Colors.black87,
                         ),
                         onChanged: (value) {
                           message = value;
@@ -306,7 +324,7 @@ class MessageBubbles extends StatelessWidget {
             Text(
               '$sender',
               style: TextStyle(
-                color: Colors.black45,
+                color: Color(0xff303030),
                 fontSize: 12,
               ),
             ),
@@ -320,7 +338,7 @@ class MessageBubbles extends StatelessWidget {
                 topLeft: isMe? Radius.circular(30) : Radius.zero,
 
               ),
-              color: isMe ?  Colors.blue : Colors.teal,
+              color: isMe ?  Color(0xFF2b68ef) : Color(0xFFe8e9e9),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                 child: Column(
@@ -330,7 +348,7 @@ class MessageBubbles extends StatelessWidget {
                       '$text',
                       style: TextStyle(
                         fontSize: 15,
-                        color: CupertinoColors.white,
+                        color: isMe ?  Colors.white : Colors.black,
                       ),
                     ),
                     SizedBox(height: 5),
@@ -338,7 +356,7 @@ class MessageBubbles extends StatelessWidget {
                       DateFormat('HH:mm').format(DateTime.fromMillisecondsSinceEpoch(timestamp)),
                       style: TextStyle(
                         fontSize: 12,
-                        color: Colors.white70,
+                        color: isMe ?  Colors.white70 : Color(0xff303030),
                       ),
                     ),
                   ],

@@ -110,7 +110,7 @@ class _login_screenState extends State<login_screen>
               ),
               Row(
                 children: [
-                  Expanded(flex: 1, child: Icon(MaterialSymbols.mail)),
+                  const Expanded(flex: 1, child: Icon(MaterialSymbols.mail)),
                   Expanded(
                     flex: 5,
                     child: Container(
