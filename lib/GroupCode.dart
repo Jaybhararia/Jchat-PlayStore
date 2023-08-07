@@ -130,48 +130,46 @@ class _Code_GroupState extends State<Code_Group> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 30.0),
-                child: Expanded(
-                  child: Material(
-                    color: Color(0xFF0df5e3),
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                    elevation: 5,
-                    child: MaterialButton(
-                      onPressed: () async {
-                        setState(() {
-                          showspinner = true;
-                        });
-                        final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-                        final CollectionReference _collectionRef = _firestore.collection(code!);
+                child: Material(
+                  color: Color(0xFF0df5e3),
+                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  elevation: 5,
+                  child: MaterialButton(
+                    onPressed: () async {
+                      setState(() {
+                        showspinner = true;
+                      });
+                      final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+                      final CollectionReference _collectionRef = _firestore.collection(code!);
 
-                        bool doesCollectionExist = false;
-                        await _collectionRef.limit(1).get().then((value) {
-                          doesCollectionExist = value.docs.isNotEmpty;
-                        });
-                        setState(() {
-                          showspinner = false;
-                        });
+                      bool doesCollectionExist = false;
+                      await _collectionRef.limit(1).get().then((value) {
+                        doesCollectionExist = value.docs.isNotEmpty;
+                      });
+                      setState(() {
+                        showspinner = false;
+                      });
 
-                        if (doesCollectionExist) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Chat(stringmessage: code),
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar
-                            (backgroundColor: Color(0xFF0df5e3),
-                            content: Text('Code Value Does Not Exist'),
-                          ));
-                        }
-                      },
-                      minWidth: 200.0,
-                      height: 42.0,
-                      child: Text(
-                        'Verify Code',
-                        style: TextStyle(
-                          color: Color(0xFF1e1a31),
-                        ),
+                      if (doesCollectionExist) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Chat(stringmessage: code),
+                          ),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar
+                          (backgroundColor: Color(0xFF0df5e3),
+                          content: Text('Code Value Does Not Exist'),
+                        ));
+                      }
+                    },
+                    minWidth: 200.0,
+                    height: 42.0,
+                    child: Text(
+                      'Verify Code',
+                      style: TextStyle(
+                        color: Color(0xFF1e1a31),
                       ),
                     ),
                   ),
@@ -179,29 +177,27 @@ class _Code_GroupState extends State<Code_Group> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: Expanded(
-                  child: Material(
-                    color: Color(0xFF0df5e3),
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                    elevation: 5,
-                    child: MaterialButton(
-                      onPressed: () {
-                        String v4 = generateRandomString(6);
-                        // String v4 = uuid.v4 as String;
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Chat(stringmessage: v4),
-                          ),
-                        );
-                      },
-                      minWidth: 200.0,
-                      height: 42.0,
-                      child: Text(
-                        'Create a new Code',
-                        style: TextStyle(
-                          color: Color(0xFF1e1a31),
+                child: Material(
+                  color: Color(0xFF0df5e3),
+                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  elevation: 5,
+                  child: MaterialButton(
+                    onPressed: () {
+                      String v4 = generateRandomString(6);
+                      // String v4 = uuid.v4 as String;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Chat(stringmessage: v4),
                         ),
+                      );
+                    },
+                    minWidth: 200.0,
+                    height: 42.0,
+                    child: Text(
+                      'Create a new Code',
+                      style: TextStyle(
+                        color: Color(0xFF1e1a31),
                       ),
                     ),
                   ),

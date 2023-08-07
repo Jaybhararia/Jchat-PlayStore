@@ -173,42 +173,40 @@ class _RegisterState extends State<Register> {
 
               Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
-                child: Expanded(
-                  child: Material(
-                    color: Color(0xFF0df5e3),
-                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                    elevation: 5,
-                    child: MaterialButton(
-                      onPressed: () async {
+                child: Material(
+                  color: Color(0xFF0df5e3),
+                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  elevation: 5,
+                  child: MaterialButton(
+                    onPressed: () async {
+                      setState(() {
+                        showspinner = true;
+                      });
+                      try{
+                        final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
                         setState(() {
-                          showspinner = true;
-                        });
-                        try{
-                          final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-                          setState(() {
-                            showspinner = false;
-                          });
-                          if(newUser != null){
-                            Navigator.pushNamed(context, Verification.id);
-
-                          }
-                        }
-                        catch(e){
                           showspinner = false;
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar
-                            (backgroundColor: Color(0xFF0df5e3),
-                            content: Text(e.toString()),
-                          ));
-                        }
-                      },
+                        });
+                        if(newUser != null){
+                          Navigator.pushNamed(context, Verification.id);
 
-                      minWidth: 200.0,
-                      height: 42.0,
-                      child: Text(
-                        'Register',
-                        style: TextStyle(
-                          color: Color(0xFF1e1a31),
-                        ),
+                        }
+                      }
+                      catch(e){
+                        showspinner = false;
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar
+                          (backgroundColor: Color(0xFF0df5e3),
+                          content: Text(e.toString()),
+                        ));
+                      }
+                    },
+
+                    minWidth: 200.0,
+                    height: 42.0,
+                    child: Text(
+                      'Register',
+                      style: TextStyle(
+                        color: Color(0xFF1e1a31),
                       ),
                     ),
                   ),

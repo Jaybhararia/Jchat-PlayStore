@@ -107,42 +107,40 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 30.0),
-            child: Expanded(
-              child: Material(
-                color: Color(0xFF0df5e3),
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                elevation: 5,
-                child: MaterialButton(
-                  onPressed: () {
-                    _auth.sendPasswordResetEmail(email: email).then((value) =>
-                    {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar
-                      (
-                      backgroundColor: Color(0xFF0df5e3),
-                    content: Text("Password Reset Link Has been sent"),
-                      // animation: ,
-                      duration: Duration(seconds: 3),
-                      // backgroundColor: Colors.deepOrangeAccent,
-                      // shape: ShapeBorder(
-                      //
-                      // ),
-                    ))
-                    }).onError((error, stackTrace) =>
-                        {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar
-                      (backgroundColor: Color(0xFF0df5e3),
-                    content: Text(error.toString()),
-                    ))
-                        }
-                    );
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Send Reset Password Link',
-                    style: TextStyle(
-                      color: Color(0xFF1e1a31),
-                    ),
+            child: Material(
+              color: Color(0xFF0df5e3),
+              borderRadius: BorderRadius.all(Radius.circular(30.0)),
+              elevation: 5,
+              child: MaterialButton(
+                onPressed: () {
+                  _auth.sendPasswordResetEmail(email: email).then((value) =>
+                  {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar
+                    (
+                    backgroundColor: Color(0xFF0df5e3),
+                  content: Text("Password Reset Link Has been sent"),
+                    // animation: ,
+                    duration: Duration(seconds: 3),
+                    // backgroundColor: Colors.deepOrangeAccent,
+                    // shape: ShapeBorder(
+                    //
+                    // ),
+                  ))
+                  }).onError((error, stackTrace) =>
+                      {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar
+                    (backgroundColor: Color(0xFF0df5e3),
+                  content: Text(error.toString()),
+                  ))
+                      }
+                  );
+                },
+                minWidth: 200.0,
+                height: 42.0,
+                child: Text(
+                  'Send Reset Password Link',
+                  style: TextStyle(
+                    color: Color(0xFF1e1a31),
                   ),
                 ),
               ),
