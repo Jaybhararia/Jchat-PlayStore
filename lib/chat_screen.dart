@@ -98,12 +98,23 @@ class _ChatState extends State<Chat> {
                 Navigator.pop(context);
               }),
         ],
-        title: Text(
-            'JChat : $stringmessage',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic
+        title: GestureDetector(
+          onLongPress: () {
+            Clipboard.setData(ClipboardData(text: stringmessage));
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Unique Code copied to clipboard"),
+                backgroundColor: Color(0xFF0df5e3),
+              ),
+            );
+          },
+          child: Text(
+              'JChat : $stringmessage',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic
+            ),
           ),
         ),
         backgroundColor: Color(0xFFfaf4d0),
