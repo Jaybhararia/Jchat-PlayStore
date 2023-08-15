@@ -52,11 +52,7 @@ class _ChatState extends State<Chat> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
-
-
     stringmessage = widget.stringmessage;
-
     createFirestoreCollection();
 
     getCurrentUser();
@@ -121,7 +117,7 @@ class _ChatState extends State<Chat> {
       ),
       body: Center(
       child: Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
       gradient: LinearGradient(
       begin: Alignment.topRight,
       end: Alignment.bottomLeft,
@@ -141,45 +137,11 @@ class _ChatState extends State<Chat> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              //   stream: _firestore.collection('messages').orderBy('timestamp', descending: true).snapshots(),
-              //   builder: (context, snapshot) {
-              //     if (!snapshot.hasData) {
-              //       return Center(
-              //         child: SpinKitFadingFour(
-              //           color: Colors.redAccent,
-              //         ),
-              //       );
-              //     }
-              //     final messages = snapshot.data!.docs;
-              //     List<MessageBubbles> messageBubbles = [];
-              //     for (var message in messages) {
-              //       final messageText = message.data()['text'];
-              //       final messageSender = message.data()['sender'];
-              //
-              //
-              //       final currentuser = loggedinUser.email;
-              //
-              //
-              //       final messageWidget = MessageBubbles(messageSender, messageText, currentuser == messageSender);
-              //       messageBubbles.add(messageWidget);
-              //
-              //       // final currentUser = loggedinUser.email;
-              //     }
-              //
-              //     return Expanded(
-              //       child: ListView(
-              //         reverse: true,
-              //         children: messageBubbles
-              //       ),
-              //     );
-              //   }
-              // ),
             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
           stream: _firestore.collection(stringmessage).orderBy('timestamp', descending: true).snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return Center(
+              return const Center(
                 child: SpinKitFadingFour(
                   color: Colors.redAccent,
                 ),

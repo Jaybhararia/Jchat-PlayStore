@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:jchat/Choosing_Screen.dart';
+import 'package:jchat/Existing_Chats.dart';
+import 'package:jchat/Splash_Screen.dart';
 import 'ForgotPasswordScreen.dart';
 import 'login_screen.dart';
 import 'registration_screen.dart';
@@ -25,14 +28,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData.dark(),
       // home: Chat(),
-      initialRoute: login_screen.id,
+      initialRoute: Splash_Screen.id,
       routes: {
+        Splash_Screen.id : (context) => Splash_Screen(),
         Register.id :(context) => Register(),
         login_screen.id : (context) => login_screen(),
-        // Chat.id : (context) => Chat(),
         Verification.id : (context) => Verification(),
         ForgotPassword.id : (context) => ForgotPassword(),
         Code_Group.id : (context) => Code_Group(),
+        Choosing_Screen.id : (context) => Choosing_Screen(),
+        Existing_Chats.id : (context) => Existing_Chats(),
       },
     );
   }

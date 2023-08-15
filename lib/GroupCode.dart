@@ -60,6 +60,7 @@ class _Code_GroupState extends State<Code_Group> {
     return Scaffold(
       backgroundColor: Color(0xFF201b31),
       appBar: AppBar(
+        backgroundColor: const Color(0xFF39304d),
         title: Text('Join the Group Chat'),
       ),
       body: ModalProgressHUD(
