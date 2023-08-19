@@ -1,15 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:jchat/Choosing_Screen.dart';
-import 'package:jchat/Existing_Chats.dart';
-import 'package:jchat/Splash_Screen.dart';
-import 'ForgotPasswordScreen.dart';
-import 'login_screen.dart';
-import 'registration_screen.dart';
-import 'chat_screen.dart';
-import 'verification_screen.dart';
-import 'package:jchat/GroupCode.dart';
+import 'package:jchat/Existing_Chats/Chat_Tile.dart';
+import 'package:jchat/Screens/Choosing_Screen.dart';
+import 'package:jchat/Screens/Name_New_Group.dart';
+import 'package:jchat/Screens/Splash_Screen.dart';
+import 'Screens/ForgotPasswordScreen.dart';
+import 'Screens/login_screen.dart';
+import 'Screens/registration_screen.dart';
+import 'Screens/chat_screen.dart';
+import 'Screens/verification_screen.dart';
+import 'package:jchat/Screens/GroupCode.dart';
 
 void main() async{
 
@@ -37,7 +38,8 @@ class MyApp extends StatelessWidget {
         ForgotPassword.id : (context) => ForgotPassword(),
         Code_Group.id : (context) => Code_Group(),
         Choosing_Screen.id : (context) => Choosing_Screen(),
-        Existing_Chats.id : (context) => Existing_Chats(),
+        New_Code.id : (context) => New_Code(),
+        Chat_Tile.id : (context) => Chat_Tile(),
       },
     );
   }

@@ -7,7 +7,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'chat_screen.dart';
 import 'verification_screen.dart';
-import 'package:jchat/chat_screen.dart';
+import 'package:jchat/Screens/chat_screen.dart';
 
 class Register extends StatefulWidget {
   // const Register({Key? key}) : super(key: key);

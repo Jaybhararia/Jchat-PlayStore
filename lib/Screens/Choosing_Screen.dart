@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:jchat/Existing_Chats.dart';
-import 'package:jchat/login_screen.dart';
+import 'package:jchat/Existing_Chats/Chat_Tile.dart';
+import 'package:jchat/Screens/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'GroupCode.dart';
@@ -50,7 +50,8 @@ class _Choosing_ScreenState extends State<Choosing_Screen> with SingleTickerProv
           'What to do next?'
         ),
         backgroundColor: const Color(0xFF39304d),
-        actions: [IconButton(
+        actions: [
+          IconButton(
           icon: const Icon(Icons.logout),
           onPressed: () async {
             var sharedpre = await SharedPreferences.getInstance();
@@ -58,7 +59,8 @@ class _Choosing_ScreenState extends State<Choosing_Screen> with SingleTickerProv
             Navigator.pushNamed(context, login_screen.id);
           },
           iconSize: 30,
-        ),]
+        ),
+        ]
 
       ),
       backgroundColor: Color(0xFF201b30),
@@ -115,7 +117,7 @@ class _Choosing_ScreenState extends State<Choosing_Screen> with SingleTickerProv
                   elevation: 5,
                   child: MaterialButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, Existing_Chats.id);
+                      Navigator.pushNamed(context, Chat_Tile.id);
                     },
                     minWidth: 200.0,
                     height: 42.0,

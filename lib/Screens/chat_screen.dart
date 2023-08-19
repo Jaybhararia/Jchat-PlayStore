@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'constants.dart';
+import '../constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -161,8 +161,10 @@ class _ChatState extends State<Chat> {
               messageBubbles.add(messageWidget);
             }
 
-            messageBubbles.add(MessageBubbles('JChat', 'Welcome To JChat', false, DateTime.now().toUtc().millisecondsSinceEpoch));
 
+            messageBubbles.add(MessageBubbles('JChat', 'To copy the group ID, touch and hold on Top where the group ID is written.', false, DateTime.now().toUtc().millisecondsSinceEpoch));
+            messageBubbles.add(MessageBubbles('JChat', 'To copy a message, touch and hold on the message.', false, DateTime.now().toUtc().millisecondsSinceEpoch));
+            messageBubbles.add(MessageBubbles('JChat', 'Welcome To JChat', false, DateTime.now().toUtc().millisecondsSinceEpoch));
             return Expanded(
               child: ListView(
                 reverse: true,

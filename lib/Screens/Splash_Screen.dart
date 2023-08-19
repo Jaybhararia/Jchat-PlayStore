@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:jchat/Choosing_Screen.dart';
-import 'package:jchat/login_screen.dart';
+import 'package:jchat/Screens/Choosing_Screen.dart';
+import 'package:jchat/Screens/login_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

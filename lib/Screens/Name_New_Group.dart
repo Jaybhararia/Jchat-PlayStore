@@ -5,23 +5,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:jchat/Existing_Chats/Existing_Chat_List.dart';
+import 'package:jchat/Existing_Chats/Group_Details.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:uuid/uuid_util.dart';
 import 'package:flutter_material_symbols/flutter_material_symbols.dart';
 
 import 'chat_screen.dart';
 
-class Code_Group extends StatefulWidget {
+class New_Code extends StatefulWidget {
 
-  static String id = 'codegroup';
-  const Code_Group({Key? key}) : super(key: key);
+  static String id = 'New_Code';
+  const New_Code({Key? key}) : super(key: key);
 
   @override
-  State<Code_Group> createState() => _Code_GroupState();
+  State<New_Code> createState() => _New_CodeState();
 }
 
-class _Code_GroupState extends State<Code_Group> {
+class _New_CodeState extends State<New_Code> {
 
   // void alert() {
   //   showDialog(
@@ -46,6 +49,7 @@ class _Code_GroupState extends State<Code_Group> {
   // }
 
   String code = '';
+  String name = '';
 
   bool showspinner = false;
 
@@ -61,7 +65,7 @@ class _Code_GroupState extends State<Code_Group> {
       backgroundColor: Color(0xFF201b31),
       appBar: AppBar(
         backgroundColor: const Color(0xFF39304d),
-        title: Text('Join the Group Chat'),
+        title: Text('Create a New Group'),
       ),
       body: ModalProgressHUD(
         progressIndicator: SpinKitFadingFour(
@@ -96,7 +100,7 @@ class _Code_GroupState extends State<Code_Group> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    flex: 1, child: Icon(Icons.attachment_outlined
+                    flex: 1, child: Icon(Icons.abc
                   ),),
                   Expanded(
                     flex: 5,
@@ -105,12 +109,12 @@ class _Code_GroupState extends State<Code_Group> {
                       child: TextField(
                         // cursorColor: const Color(0xFF39304d),
                         onChanged: (value) {
-                          code = value;
+                          name = value;
                         },
                         decoration: InputDecoration(
-                            labelText: 'Unique Code',
+                            labelText: 'Group Name',
                             focusColor: const Color(0xFF39304d),
-                            hintText: 'Enter The Unique Code',
+                            hintText: 'Enter The Name of New Group',
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20),
                               borderSide: const BorderSide(
@@ -136,55 +140,16 @@ class _Code_GroupState extends State<Code_Group> {
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                   elevation: 5,
                   child: MaterialButton(
-                    onPressed: () async {
-                      setState(() {
-                        showspinner = true;
-                      });
-                      final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-                      final CollectionReference _collectionRef = _firestore.collection(code!);
-
-                      bool doesCollectionExist = false;
-                      await _collectionRef.limit(1).get().then((value) {
-                        doesCollectionExist = value.docs.isNotEmpty;
-                      });
-                      setState(() {
-                        showspinner = false;
-                      });
-
-                      if (doesCollectionExist) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => Chat(stringmessage: code),
-                          ),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar
-                          (backgroundColor: Color(0xFF0df5e3),
-                          content: Text('Code Value Does Not Exist'),
-                        ));
-                      }
-                    },
-                    minWidth: 200.0,
-                    height: 42.0,
-                    child: Text(
-                      'Verify Code',
-                      style: TextStyle(
-                        color: Color(0xFF1e1a31),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: Material(
-                  color: Color(0xFF0df5e3),
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                  elevation: 5,
-                  child: MaterialButton(
                     onPressed: () {
                       String v4 = generateRandomString(6);
+                      //TODO : here i have to add this string and group in the chat tile
+                      Group_Details newGroup = Group_Details(Group_Code: v4, Group_Description: name);
+                      Existing_Chat_List().addGroup(newGroup);
+                      Existing_Chat_List().saveChatGroups();
+
+                      setState(() {
+                        // Update the UI if necessary
+                      });
                       // String v4 = uuid.v4 as String;
                       Navigator.push(
                         context,
@@ -196,7 +161,7 @@ class _Code_GroupState extends State<Code_Group> {
                     minWidth: 200.0,
                     height: 42.0,
                     child: Text(
-                      'Create a new Code',
+                      'Create a New Group',
                       style: TextStyle(
                         color: Color(0xFF1e1a31),
                       ),
